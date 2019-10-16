@@ -5,11 +5,13 @@ ArrayList<GameObject> myGameObjects;
 
 void setup() {
   size(800, 600);
-  shipimg = loadImage("ship.png");
-  shipimg.resize(100,100);
   imageMode(CENTER);
   myShip = new Ship();
   myGameObjects = new ArrayList<GameObject>();
+  
+  myGameObjects.add(new Asteroid());
+  myGameObjects.add(new Asteroid());
+  myGameObjects.add(new Asteroid());
 }
 
 void draw() {
@@ -19,12 +21,15 @@ void draw() {
   
   int i = 0;
   while (i < myGameObjects.size()) {
-    GameObject bullet = myGameObjects.get(i);
-    bullet.show();
-    bullet.act();
-    i++;
+    GameObject myObj = myGameObjects.get(i);
+    myObj.show();
+    myObj.act();
+    if (myObj.lives == 0) {
+       myGameObjects.remove(i); 
+    } else {
+       i++;
+    }
   }
-  
 }
 
 void keyPressed() {
